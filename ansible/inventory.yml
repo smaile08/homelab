@@ -1,0 +1,25 @@
+# Ansible inventory
+# RU: Список хостов, которыми Ansible будет управлять.
+
+all:
+  children:
+
+    # Physical hypervisors
+    hypervisors:
+      hosts:
+        n5:
+          ansible_host: 192.168.1.10
+          ansible_user: root
+
+    # Backup infrastructure
+    backup:
+      hosts:
+        pbs:
+          ansible_host: 192.168.1.11
+          ansible_user: root
+
+    # Group for "any Debian-based machine" — useful for shared base config
+    debian_family:
+      children:
+        hypervisors:
+        backup:

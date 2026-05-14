@@ -1,0 +1,39 @@
+---
+# Base setup for all Debian-family hosts.
+# RU: Минимальная база — обновить пакеты, поставить must-have утилиты, настроить часовой пояс.
+
+- name: Base setup for Debian-family hosts
+  hosts: debian_family
+  become: true
+
+  tasks:
+
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install base packages
+      ansible.builtin.apt:
+        name:
+          - htop
+          - vim
+          - curl
+          - wget
+          - git
+          - tmux
+          - ncdu
+          - net-tools
+          - dnsutils
+        state: present
+
+    - name: Set timezone
+      community.general.timezone:
+        name: Europe/Moscow
+      # RU: Поменяй на свой пояс, если нужно. Например, America/Chicago для Memphis.
+
+    - name: Ensure SSH service is enabled and running
+      ansible.builtin.systemd:
+        name: ssh
+        enabled: true
+        state: started

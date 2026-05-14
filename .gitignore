@@ -1,0 +1,21 @@
+# секреты и ключи
+*.pem
+*.key
+secrets.yml
+*.vault
+.env
+
+# terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+!*.example.tfvars
+
+# ansible
+*.retry
+vault_password*
+
+# мусор
+.DS_Store
+*.swp
